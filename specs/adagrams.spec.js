@@ -83,7 +83,7 @@ describe('Adagrams', () => {
       });
     });
   });
-
+// current test
   describe('highestScoreFrom', () => {
     it('returns a hash that contains the word and score of best word in an array', () => {
       const words = ['X', 'XX', 'XXX', 'XXXX'];
