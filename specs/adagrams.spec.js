@@ -83,7 +83,7 @@ describe('Adagrams', () => {
       });
     });
   });
-// current test
+
   describe('highestScoreFrom', () => {
     it('returns a hash that contains the word and score of best word in an array', () => {
       const words = ['X', 'XX', 'XXX', 'XXXX'];
@@ -98,7 +98,7 @@ describe('Adagrams', () => {
 
       expect(Adagrams.highestScoreFrom(words)).toEqual(correct);
     });
-
+// current test
     describe('in case of tied score', () => {
       const expectTie = (words) => {
         const scores = words.map(Adagrams.scoreWord);

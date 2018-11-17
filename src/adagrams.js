@@ -3,7 +3,24 @@
 
 const Adagrams = {
 
-  letterArray: ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'D', 'D', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'F', 'F', 'G', 'G', 'G', 'H', 'H', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'J', 'K', 'L', 'L', 'L', 'L', 'M', 'M', 'N', 'N', 'N', 'N', 'N', 'N', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'P', 'P', 'Q', 'R', 'R', 'R', 'R', 'R', 'R', 'S', 'S', 'S', 'S', 'T', 'T', 'T', 'T', 'T', 'T', 'U', 'U', 'U', 'U', 'V', 'V', 'W', 'W', 'X', 'Y', 'Y', 'Z' ],
+  letterArray: [
+   'A', 'A', 'A', 'A', 'A', 'A',
+   'A', 'A', 'A', 'B', 'B', 'C',
+   'C', 'D', 'D', 'D', 'D', 'E',
+   'E', 'E', 'E', 'E', 'E', 'E',
+   'E', 'E', 'E', 'E', 'E', 'F',
+   'F', 'G', 'G', 'G', 'H', 'H',
+   'I', 'I', 'I', 'I', 'I', 'I',
+   'I', 'I', 'I', 'J', 'K', 'L',
+   'L', 'L', 'L', 'M', 'M', 'N',
+   'N', 'N', 'N', 'N', 'N', 'O',
+   'O', 'O', 'O', 'O', 'O', 'O',
+   'O', 'P', 'P', 'Q', 'R', 'R',
+   'R', 'R', 'R', 'R', 'S', 'S',
+   'S', 'S', 'T', 'T', 'T', 'T',
+   'T', 'T', 'U', 'U', 'U', 'U',
+   'V', 'V', 'W', 'W', 'X', 'Y',
+   'Y', 'Z' ],
 
   drawLetters() {
 
@@ -29,7 +46,6 @@ const Adagrams = {
         letterObject[letter] + 1;
       } else {
         letterObject[letter] = 1
-
       }
     }
 
@@ -46,7 +62,7 @@ const Adagrams = {
     return true;
   },
 
-  scoreWord(word){
+  scoreWord(word) {
     const letterScores = {
       "A": 1,
       "E": 1,
@@ -78,21 +94,60 @@ const Adagrams = {
 
     let totalScore = 0;
     const letters = word.toUpperCase();
-    const upperLetters = letters.split("");
+    // const upperLetters = letters.split("");
 
-    for ( let letter of upperLetters ) {
+    for ( let letter of letters ) {
       totalScore += letterScores[letter];
     }
 
-    if (upperLetters.length > 6) {
+    if (letters.length > 6) {
       totalScore += 8;
     }
     return totalScore;
+  },
+
+  breakTie(incumbent, challenger) {
+
+    if ( incumbent.word.length == 10) {
+      return incumbent;
+    } else if (challenger.word.length == 10) {
+      return challenger;
+    } else if (challenger.word.length < incumbent.word.length) {
+      return challenger;
+    } else {
+      return incumbent;
+    }
+  },
+
+
+  highestScoreFrom (words) {
+
+    let scoreObjects = [];
+
+    for (let wordy of words) {
+      let tempObject = {
+        'word': wordy ,
+        'score': this.scoreWord(wordy)
+      }
+
+      scoreObjects.push(tempObject);
+    }
+
+    // console.log(scoreObjects);
+
+    let winningObject = scoreObjects[Object.keys(scoreObjects)[0]];
+
+    for ( let hash of scoreObjects ) {
+      if (hash.score > winningObject.score) {
+        winningObject = hash;
+      } else if (hash.score ==  winningObject.score){
+
+        winningObject = this.breakTie(winningObject, hash);
+
+      }
+    }
+    return winningObject;
   }
-
-
-
-
 
 };
 
