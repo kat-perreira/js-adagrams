@@ -26,14 +26,14 @@ const Adagrams = {
 
     // Implement this method for wave 1
     const letters = [];
-    let index = 0;
     for (let i = 0; i < this.letterArray.length; i += 1){
-      letters[index] = this.letterArray[Math.floor(Math.random()*this.letterArray.length)];
-      index += 1;
+      letters[i] = this.letterArray[Math.floor(Math.random()*this.letterArray.length)];
+      i += 1;
 
     }
     // console.log(letters.slice(1,11));
-    return letters.slice(1,11);
+    // let rand = letterArray[Math.floor(Math.random() * letterArray.length)];
+    return letters.slice(0,10);
   },
 
   usesAvailableLetters( input, lettersInHand ) {
@@ -43,9 +43,9 @@ const Adagrams = {
 
     for (let letter of lettersInHand ) {
       if (letterObject[letter]) {
-        letterObject[letter] + 1;
+        letterObject[letter] += 1;
       } else {
-        letterObject[letter] = 1
+        letterObject[letter] = 1;
       }
     }
 
@@ -125,10 +125,10 @@ const Adagrams = {
     let scoreObjects = [];
 
     for (let wordy of words) {
-      let tempObject = {
-        'word': wordy ,
+      const tempObject = {
+        'word': wordy,
         'score': this.scoreWord(wordy)
-      }
+      };
 
       scoreObjects.push(tempObject);
     }
